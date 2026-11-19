@@ -41,7 +41,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          tag="extreme-fps-26.2-v0.1.0"
+          tag="extreme-fps-26.2-v0.1.1"
           cat > dist/RELEASE_NOTES.md <<'NOTES'
           ## Minecraft Java 26.2 / Fabric — Galax71 Extreme FPS
           - **Ready-to-import Modrinth / Prism pack:** Galax71_ExtremeFPS_26.2.mrpack
@@ -57,6 +57,6 @@ jobs:
             gh release upload "$tag" dist/*.mrpack dist/*.zip dist/BUILD_REPORT.json --clobber
           else
             gh release create "$tag" dist/*.mrpack dist/*.zip dist/BUILD_REPORT.json \
-              --title "Extreme FPS 26.2 Fabric v0.1.0" \
+              --title "Extreme FPS 26.2 Fabric v0.1.1" \
               --notes-file dist/RELEASE_NOTES.md
           fi
