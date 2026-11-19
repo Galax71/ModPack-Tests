@@ -1,0 +1,152 @@
+{
+  "minecraft": "26.2",
+  "loader": "fabric",
+  "pack_version": "0.1.0",
+  "mods": [
+    {
+      "slug": "sodium",
+      "tier": "core",
+      "reason": "Render engine optimization"
+    },
+    {
+      "slug": "lithium",
+      "tier": "core",
+      "reason": "Game logic and ticks"
+    },
+    {
+      "slug": "immediatelyfast",
+      "tier": "core",
+      "reason": "Rendering batches and UI"
+    },
+    {
+      "slug": "ferrite-core",
+      "tier": "core",
+      "reason": "Memory footprint"
+    },
+    {
+      "slug": "entityculling",
+      "tier": "core",
+      "reason": "Occlusion culling"
+    },
+    {
+      "slug": "moreculling",
+      "tier": "aggressive",
+      "reason": "Additional block and entity culling"
+    },
+    {
+      "slug": "fabric-api",
+      "tier": "dependency",
+      "reason": "Core Fabric APIs"
+    },
+    {
+      "slug": "badoptimizations",
+      "tier": "aggressive",
+      "reason": "Client-side optimization"
+    },
+    {
+      "slug": "c2me-fabric",
+      "tier": "aggressive",
+      "reason": "Parallel chunk generation"
+    },
+    {
+      "slug": "krypton",
+      "tier": "aggressive",
+      "reason": "Network stack"
+    },
+    {
+      "slug": "alternate-current",
+      "tier": "aggressive",
+      "reason": "Redstone updates"
+    },
+    {
+      "slug": "vmp-fabric",
+      "tier": "aggressive",
+      "reason": "Entity/network scaling"
+    },
+    {
+      "slug": "scalablelux",
+      "tier": "aggressive",
+      "reason": "Lighting calculations"
+    },
+    {
+      "slug": "ksyxis",
+      "tier": "aggressive",
+      "reason": "World loading"
+    },
+    {
+      "slug": "fastquit",
+      "tier": "aggressive",
+      "reason": "Quit speed"
+    },
+    {
+      "slug": "clumps",
+      "tier": "aggressive",
+      "reason": "XP orb merging"
+    },
+    {
+      "slug": "let-me-despawn",
+      "tier": "aggressive",
+      "reason": "Entity despawn optimization"
+    },
+    {
+      "slug": "dynamic-fps",
+      "tier": "optional",
+      "reason": "Inactive window CPU saving; not foreground FPS"
+    },
+    {
+      "slug": "modmenu",
+      "tier": "utility",
+      "reason": "Mod inspection"
+    },
+    {
+      "slug": "sodium-extra",
+      "tier": "utility",
+      "reason": "Additional video options"
+    },
+    {
+      "slug": "reeses-sodium-options",
+      "tier": "utility",
+      "reason": "Sodium configuration interface"
+    },
+    {
+      "slug": "chunky",
+      "tier": "optional",
+      "reason": "Pre-generate chunks; not direct FPS"
+    },
+    {
+      "slug": "enhancedblockentities",
+      "tier": "aggressive",
+      "reason": "Block-entity renderer"
+    },
+    {
+      "slug": "cull-leaves",
+      "tier": "aggressive",
+      "reason": "Foliage culling"
+    },
+    {
+      "slug": "noisium",
+      "tier": "aggressive",
+      "reason": "Worldgen noise optimization"
+    },
+    {
+      "slug": "modernfix",
+      "tier": "aggressive",
+      "reason": "Startup/memory fixes; only include if verified for 26.2"
+    },
+    {
+      "slug": "entity-view-distance",
+      "tier": "optional",
+      "reason": "Entity distance controls"
+    },
+    {
+      "slug": "particles-core",
+      "tier": "optional",
+      "reason": "Particle optimization"
+    },
+    {
+      "slug": "fps-reducer",
+      "tier": "optional",
+      "reason": "Background FPS limiting; not foreground FPS"
+    }
+  ]
+}
