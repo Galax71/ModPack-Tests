@@ -100,6 +100,9 @@ def fabric_loader():
 def build():
     DIST.mkdir(parents=True, exist_ok=True)
     for mod in config["mods"]:
+        if mod.get("tier") == "experimental":
+            warnings.append("Experimental renderer excluded from main pack: " + mod["slug"])
+            continue
         resolve(mod["slug"], mandatory=False)
     # Exclude candidates declaring a conflict with anything already included.
     # A conflict is recorded rather than silently resolving to broken combinations.
