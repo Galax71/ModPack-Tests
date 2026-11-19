@@ -1,7 +1,7 @@
 {
   "minecraft": "26.2",
   "loader": "fabric",
-  "pack_version": "0.1.0",
+  "pack_version": "0.1.1",
   "mods": [
     {
       "slug": "sodium",
@@ -147,6 +147,16 @@
       "slug": "fps-reducer",
       "tier": "optional",
       "reason": "Background FPS limiting; not foreground FPS"
+    },
+    {
+      "slug": "packet-fixer",
+      "tier": "aggressive",
+      "reason": "Packet/network stability and handling; include only if 26.2 Fabric release exists"
+    },
+    {
+      "slug": "vulkanmod",
+      "tier": "experimental",
+      "reason": "Alternative Vulkan renderer; do not combine with Sodium-based OpenGL pack until independently tested"
     }
   ]
 }
