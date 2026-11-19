@@ -11,7 +11,7 @@ $manifestPath = Join-Path $base 'manifest.json'
 if (!(Test-Path $lockPath) -or !(Test-Path $manifestPath)) {
     throw 'Extract the complete CurseForge_Personal_Installer_26.2.zip first, then run this script.'
 }
-$mods = @(Get-Content $lockPath -Raw | ConvertFrom-Json)
+$mods = @(foreach ($item in (Get-Content $lockPath -Raw | ConvertFrom-Json)) { $item })
 $workspace = Join-Path $env:TEMP ('Galax71-ExtremeFPS-' + [guid]::NewGuid().ToString('N'))
 $modsDir = Join-Path $workspace 'overrides\mods'
 New-Item -ItemType Directory -Force $modsDir | Out-Null
