@@ -78,7 +78,7 @@ def resolve(identifier, mandatory=False, stack=()):
                 raise ValueError("Unresolved file-only required dependency " + dep["file_name"])
         selected[pid] = {"name": p["title"], "slug": p["slug"], "project_id": pid,
                          "version_id": version["id"], "version": version["version_number"],
-                         "filename": jar["filename"], "url": jar["url"],
+                         "filename": jar["filename"], "size": jar.get("size", 0), "url": jar["url"],
                          "sha1": jar["hashes"].get("sha1", ""), "sha512": jar["hashes"]["sha512"],
                          "license": p.get("license", {}).get("id", "unknown"),
                          "dependencies": version.get("dependencies", [])}
@@ -125,13 +125,13 @@ def build():
     entries = []
     lock = []
     for m in sorted(selected.values(), key=lambda x: x["name"].casefold()):
-        if not re.match(r"^[^/\\]+\\.jar$", m["filename"]):
+        if not re.match(r"^[^/\\]+\.jar$", m["filename"]):
             raise RuntimeError("Unsafe JAR filename: " + m["filename"])
         hashes = {"sha512": m["sha512"]}
         if m["sha1"]:
             hashes["sha1"] = m["sha1"]
         entries.append({"path": "mods/" + m["filename"], "hashes": hashes,
-                        "downloads": [m["url"]], "fileSize": 0,
+                        "downloads": [m["url"]], "fileSize": m["size"],
                         "env": {"client": "required", "server": "optional"}})
         lock.append({k: v for k, v in m.items() if k != "dependencies"})
     manifest = {
