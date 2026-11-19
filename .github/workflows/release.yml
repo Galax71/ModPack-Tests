@@ -1,0 +1,62 @@
+name: Build and publish Extreme FPS 26.2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mods.json'
+      - 'build_pack.py'
+      - 'Build-CurseForge-Pack.ps1'
+      - 'README.md'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Resolve Minecraft 26.2 Fabric files and assemble pack
+        run: python build_pack.py
+      - name: Validate archives and ensure pack is populated
+        run: |
+          python - <<'PY'
+          import json, zipfile
+          with zipfile.ZipFile('dist/Galax71_ExtremeFPS_26.2.mrpack') as z:
+              m = json.loads(z.read('modrinth.index.json'))
+              assert len(m['files']) >= 5, 'Too few mods'
+              assert all(f['fileSize'] > 0 and f['hashes']['sha512'] for f in m['files'])
+              print('Resolved compatible mod files:', len(m['files']))
+          with zipfile.ZipFile('dist/CurseForge_Personal_Installer_26.2.zip') as z:
+              assert {'Build-CurseForge-Pack.ps1', 'resolved-mods.json', 'manifest.json'}.issubset(z.namelist())
+          PY
+      - name: Publish or update GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="extreme-fps-26.2-v0.1.0"
+          cat > dist/RELEASE_NOTES.md <<'NOTES'
+          ## Minecraft Java 26.2 / Fabric — Galax71 Extreme FPS
+          - **Ready-to-import Modrinth / Prism pack:** Galax71_ExtremeFPS_26.2.mrpack
+          - **CurseForge local pack creator:** CurseForge_Personal_Installer_26.2.zip
+            Extract it, then run Build-CurseForge-Pack.ps1 on your Windows PC. The
+            script downloads and SHA-512-verifies mod JARs directly to your PC,
+            then builds an importable personal-use CurseForge ZIP in Downloads.
+          - See BUILD_REPORT.json for the exact compatible mods and excluded mods.
+          - Not tested in-game. 10,000 FPS is a benchmark goal, not a guarantee.
+          - Mod files are not redistributed in this GitHub release.
+          NOTES
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" dist/*.mrpack dist/*.zip dist/BUILD_REPORT.json --clobber
+          else
+            gh release create "$tag" dist/*.mrpack dist/*.zip dist/BUILD_REPORT.json \
+              --title "Extreme FPS 26.2 Fabric v0.1.0" \
+              --notes-file dist/RELEASE_NOTES.md
+          fi
